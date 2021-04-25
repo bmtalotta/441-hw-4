@@ -86,7 +86,6 @@ int main()
   char *dev_pixels;
   int pixIndex = 0;
   pixels = (char *) malloc(sizeof(char)*imgWidth*imgHeight);
-  cudaMalloc((void **)&dev_pixels, sizeof(char) * imgWidth *imgHeight);
   for (int i = 0; i < imgHeight; i++){
     for (int j = 0; j < imgWidth; j++)
     {
@@ -95,6 +94,7 @@ int main()
       pixels[pixIndex++]=grey;
     }
   }
+  cudaMalloc((void **)&dev_pixels, sizeof(char) * imgWidth *imgHeight);
   cudaMemcpy(dev_pixels, pixels, sizeof(char) * imgWidth *imgHeight, cudaMemcpyHostToDevice);
   dim3 numThreadsPerBlock(64,64);
   int blockX = imgHeight / 64;
