@@ -97,7 +97,7 @@ int main()
   cudaMalloc((void **)&dev_pixels, sizeof(char) * imgWidth *imgHeight);
   cudaMemcpy(dev_pixels, pixels, sizeof(char) * imgWidth *imgHeight, cudaMemcpyHostToDevice);
   int powOfTwo = 2;
-  while ((imgHeight % powOfTwo) == 0 && (imgWeight % powOfTwo) == 0){
+  while ((imgHeight % powOfTwo) == 0 && (imgWidth % powOfTwo) == 0){
     powOfTwo *= 2;
   }
   dim3 numThreadsPerBlock(powOfTwo,powOfTwo);
