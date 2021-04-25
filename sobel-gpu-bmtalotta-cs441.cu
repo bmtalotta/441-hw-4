@@ -96,9 +96,13 @@ int main()
   }
   cudaMalloc((void **)&dev_pixels, sizeof(char) * imgWidth *imgHeight);
   cudaMemcpy(dev_pixels, pixels, sizeof(char) * imgWidth *imgHeight, cudaMemcpyHostToDevice);
-  dim3 numThreadsPerBlock(64,64);
-  int blockX = imgHeight / 64;
-  int blockY = imgWidth / 64;
+  int powOfTwo = 2;
+  while ((imgHeight % powOfTwo) == 0 && (imgWeight % powOfTwo) == 0){
+    powOfTwo *= 2;
+  }
+  dim3 numThreadsPerBlock(powOfTwo,powOfTwo);
+  int blockX = imgHeight / powOfTwo;
+  int blockY = imgWidth / powOfTwo;
   dim3 numBlocks(blockX,blockY);
   // Apply sobel operator to pixels, ignoring the borders
   sobel<<<numBlocks, numThreadsPerBlock>>>(imgWidth, imgHeight, dev_pixels, dev_arr);
