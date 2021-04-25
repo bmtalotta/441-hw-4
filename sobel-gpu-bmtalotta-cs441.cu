@@ -49,7 +49,7 @@ __global__ void sobel(int width, int height, char *pixels, int *arr)
     y12 *= pixels[pixelIndex(x,y+1,width)];
     y22 *= pixels[pixelIndex(x+1,y+1,width)];
     int pixelX = x00 + x01 + x02 + x20 + x21 + x22;
-    int pixelY = y00 + y01 + y02 + y20 + y21 + y22;
+    int pixelY = y00 + y10 + y20 + y02 + y12 + y22;
     arr[pixelIndex(x,y,width)] = (int)sqrt(pixelX*pixelX +pixelY*pixelY);
   }else{
     arr[pixelEndex(x,y,width)] = pixels[pixelIndex(x,y,width)];
