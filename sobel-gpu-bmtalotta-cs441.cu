@@ -27,8 +27,8 @@ __device__ int pixelIndex(int x, int y, int width)
 __global__ void sobel(int width, int height, char *pixels, int *arr)
 {
   //y uses .x and x uses .y for this :(
-  int y = blockIdx.x * blockDim.x + threadIdx.x
-  int x = blockIdx.y * blockDim.y + threadIdx.y
+  int y = blockIdx.x * blockDim.x + threadIdx.x;
+  int x = blockIdx.y * blockDim.y + threadIdx.y;
   if(x > 0 && y > 0 && x < width - 1 && y < width - 1){
     int x00 = -1;  int x20 = 1;
     int x01 = -2;  int x21 = 2;
