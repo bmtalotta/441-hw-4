@@ -52,7 +52,7 @@ __global__ void sobel(int width, int height, char *pixels, int *arr)
     int pixelY = y00 + y10 + y20 + y02 + y12 + y22;
     arr[pixelIndex(x,y,width)] = (int)sqrt(pixelX*pixelX +pixelY*pixelY);
   }else{
-    arr[pixelEndex(x,y,width)] = pixels[pixelIndex(x,y,width)];
+    arr[pixelIndex(x,y,width)] = pixels[pixelIndex(x,y,width)];
   }
 }
 
@@ -97,8 +97,8 @@ int main()
   }
   cudaMemcpy(dev_pixels, pixels, sizeof(char) * imgWidth *imgHeight, cudaMemcpyHostToDevice);
   dim3 numThreadsPerBlock(64,64);
-  int blockX = imgHeight / power;
-  int blockY = imgWidth / power;
+  int blockX = imgHeight / 64;
+  int blockY = imgWidth / 64;
   dim3 numBlocks(blockX,blockY);
   // Apply sobel operator to pixels, ignoring the borders
   sobel<<<numBlocks, numThreadsPerBlock>>>(imgWidth, imgHeight, dev_pixels, dev_arr);
