@@ -113,7 +113,7 @@ int main()
   {
     for (int j = 1; j < imgHeight-1; j++)
     {
-    int sVal = arr[j * imgWidth + i];
+    int sVal = arr[i + j * imgWidth];
       aPixel.rgbRed = sVal;
       aPixel.rgbGreen = sVal;
       aPixel.rgbBlue = sVal;
